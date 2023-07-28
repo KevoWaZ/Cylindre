@@ -18,10 +18,14 @@ function rayonF() {
         diametre.value = number * 2
         perimetre.value = diametre.value * Math.PI
         aireBase.value = Math.PI * Math.pow(number, 2)
-    
-        volume.value = aireBase.value * number2
-        aireLaterale.value = perimetre.value * number2
-        aireTotale.value = (2 * Number(aireBase.value) + Number(aireLaterale.value)).toFixed(10)
+}
+
+function hauteurF() {
+    let number2 = Number(hauteur.value)
+
+    volume.value = aireBase.value * number2
+    aireLaterale.value = perimetre.value * number2
+    aireTotale.value = (2 * Number(aireBase.value) + Number(aireLaterale.value)).toFixed(12)
 }
 
 function diametreF() {
@@ -49,12 +53,49 @@ function aireBaseF() {
     rayonF()
 }
 
+function aireLateraleF() {
+    let number = Number(aireLaterale.value)
+
+    aireBase.value = Math.PI * Math.pow(rayon.value, 2)
+    diametre.value = 2 * rayon.value
+    perimetre.value = diametre.value * Math.PI
+    aireTotale.value = (2 * Number(aireBase.value) + Number(aireLaterale.value)).toFixed(12)
+    hauteur.value = aireLaterale.value / perimetre.value
+    volume.value = aireBase.value * hauteur.value
+    rayonF()
+}
+
+function aireTotaleF() {
+    let number = Number(aireTotale.value)
+
+    aireBase.value = Math.PI * Math.pow(rayon.value, 2)
+    diametre.value = 2 * rayon.value
+    perimetre.value = diametre.value * Math.PI
+    hauteur.value = (number - 2 * aireBase.value) / perimetre.value
+    aireLaterale.value = perimetre.value * hauteur.value
+    volume.value = aireBase.value * hauteur.value
+    rayonF()
+}
+
+function volumeF() {
+    let number = Number(volume.value)
+
+    aireBase.value = Math.PI * Math.pow(rayon.value, 2)
+    diametre.value = 2 * rayon.value
+    perimetre.value = diametre.value * Math.PI
+    hauteur.value = number / aireBase.value
+    aireLaterale.value = perimetre.value * hauteur.value
+    aireTotale.value = (2 * Number(aireBase.value) + Number(aireLaterale.value)).toFixed(12)
+    rayonF()
+}
+
+
 rayon.onchange = function () {
     rayonF()
 }
 
 hauteur.onchange = function () {
-    rayonF()
+    hauteurF()
 }
 
 diametre.onchange = function () {
@@ -69,3 +110,14 @@ aireBase.onchange = function () {
     aireBaseF()
 }
 
+aireLaterale.onchange = function () {
+    aireLateraleF()
+}
+
+aireTotale.onchange = function () {
+    aireTotaleF()
+}
+
+volume.onchange = function () {
+    volumeF()
+}
