@@ -11,7 +11,6 @@ let volume = document.getElementById('volume')
 
 
 function rayonF() {
-    
         let number = Number(rayon.value)
         let number2 = Number(hauteur.value)
     
