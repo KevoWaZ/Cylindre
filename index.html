@@ -8,6 +8,7 @@
     <meta name="description" content="C'est ici que j'apprends le dev Front-End">
     <title>Calculateur cylindre</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bulma/css/bulma-rtl.min.css">
     <link rel="icon" href="">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,43 +20,44 @@
     <script defer src="https://use.fontawesome.com/releases/v6.4.0/js/all.js"></script>
 </head>
 
-<body>
+<body class="has-background-grey-lighter">
 
-    <div class="container">
+    <div class="container1">
         <div class="peri">
             <h1>Rayon: </h1>
-            <input type="number" id="rayon" placeholder="Entre un nombre">
+            <input class="input is-link is-rounded" type="number" id="rayon" placeholder="Entre un nombre">
         </div>
         <div class="aire">
             <h1>Diametre: </h1>
-            <input type="number" id="diametre" placeholder="Entre un nombre">
+            <input class="input is-link is-rounded" type="number" id="diametre" placeholder="Entre un nombre">
         </div>
         <div class="diam">
             <h1>Perimetre: </h1>
-            <input type="number" id="perimetre" placeholder="Entre un nombre">
+            <input class="input is-link is-rounded" type="number" id="perimetre" placeholder="Entre un nombre">
         </div>
         <div class="rayon">
             <h1>Aire de base: </h1>
-            <input type="number" id="aireBase" placeholder="Entre un nombre">
+            <input class="input is-link is-rounded" type="number" id="aireBase" placeholder="Entre un nombre">
         </div>
         <div class="rayon">
             <h1>Hauteur: </h1>
-            <input type="number" id="hauteur" placeholder="Entre un nombre">
+            <input class="input is-link is-rounded" type="number" id="hauteur" placeholder="Entre un nombre">
         </div>
         <div class="rayon">
             <h1>Aire laterale: </h1>
-            <input type="number" id="aireLaterale" placeholder="Entre un nombre">
+            <input class="input is-link is-rounded" type="number" id="aireLaterale" placeholder="Entre un nombre">
         </div>
         <div class="rayon">
             <h1>Aire totale: </h1>
-            <input type="number" id="aireTotale" placeholder="Entre un nombre">
+            <input class="input is-link is-rounded" type="number" id="aireTotale" placeholder="Entre un nombre">
         </div>
         <div class="rayon">
             <h1>Volume: </h1>
-            <input type="number" id="volume" placeholder="Entre un nombre">
+            <input class="input is-link is-rounded" type="number" id="volume" placeholder="Entre un nombre">
         </div>
     </div>
-
+<button class="button is-danger is-light mt-3">Calculer</button>
+<button class="button is-danger is-light mt-3">Reset</button>
 
     <script defer src="app.js"></script>
 </body>
