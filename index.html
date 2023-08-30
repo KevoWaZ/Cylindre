@@ -59,9 +59,27 @@
         </div>
     </div>
 <button class="button is-danger is-light mt-3">Calculer</button>
-<button class="button is-danger is-light mt-3">Reset</button>
+<button id="reset" class="button is-danger is-light mt-3">Reset</button>
+
+<div id="modal" class="modal has-text-centered">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="box">
+            <p class="title">Entrez une valeur positive!</p>
+        </div>
+    </div>
+</div>
+<div id="modal2" class="modal has-text-centered">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="box">
+            <p class="title">Entrez d'abord une valeur parmis (rayon, diametre, perimetre, aire de base)</p>
+        </div>
+    </div>
+</div>
 
     <script defer src="app.js"></script>
+    <script defer src="modal.js"></script>
 </body>
 
 </html>
