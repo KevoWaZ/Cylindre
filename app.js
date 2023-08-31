@@ -7,6 +7,7 @@ let aireLaterale = document.getElementById('aireLaterale')
 let aireTotale = document.getElementById('aireTotale')
 let volume = document.getElementById('volume')
 btnReset = document.getElementById('reset')
+btnCalcul = document.getElementById('calcul')
 let modal = document.getElementById('modal')
 let modal2 = document.getElementById('modal2')
 numVerif = {
@@ -26,7 +27,6 @@ let isBelowZero = (currentValue) => currentValue <= 0
 
 function rayonF() {
     let number = Number(rayon.value)
-    let number2 = Number(hauteur.value)
 
     if (number <= 0) {
         rayon.classList.replace("is-link", "is-danger")
@@ -36,6 +36,8 @@ function rayonF() {
         perimetre.value = (diametre.value * Math.PI).toFixed(3)
         aireBase.value = (Math.PI * Math.pow(number, 2)).toFixed(3)
 
+        resetEquation()
+        rayonE()
         updateNumbers()
         dangerToLink()
     }
@@ -49,10 +51,13 @@ function diametreF() {
         modal.classList.add("is-active")
     } else {
         rayon.value = (number / 2).toFixed(3)
+        perimetre.value = (diametre.value * Math.PI).toFixed(3)
+        aireBase.value = (Math.PI * Math.pow(rayon.value, 2)).toFixed(3)
 
+        resetEquation()
+        diametreE()
         updateNumbers()
         dangerToLink()
-        rayonF()
     }
 }
 
@@ -67,9 +72,10 @@ function perimetreF() {
         rayon.value = (diametre.value / 2).toFixed(3)
         aireBase.value = (Math.PI * Math.pow(rayon.value, 2)).toFixed(3)
 
+        resetEquation()
+        perimetreE()
         updateNumbers()
         dangerToLink()
-        rayonF()
     }
 }
 
@@ -84,9 +90,10 @@ function aireBaseF() {
         diametre.value = (rayon.value * 2).toFixed(3)
         perimetre.value = (diametre.value * Math.PI).toFixed(3)
 
+        resetEquation()
+        aireBaseE()
         updateNumbers()
         dangerToLink()
-        rayonF()
     }
 }
 
@@ -104,6 +111,8 @@ function hauteurF() {
         aireLaterale.value = (perimetre.value * number2).toFixed(3)
         aireTotale.value = (2 * Number(aireBase.value) + Number(aireLaterale.value)).toFixed(3)
 
+        resetEquation2()
+        hauteurE()
         updateNumbers2()
         dangerToLink()
     }
@@ -119,16 +128,14 @@ function aireLateraleF() {
         modal.classList.add("is-active")
         aireLaterale.classList.replace("is-link", "is-danger")
     } else {
-        aireBase.value = Math.PI * Math.pow(rayon.value, 2)
-        diametre.value = 2 * rayon.value
-        perimetre.value = diametre.value * Math.PI
-        aireTotale.value = (2 * Number(aireBase.value) + Number(aireLaterale.value)).toFixed(12)
-        hauteur.value = aireLaterale.value / perimetre.value
-        volume.value = aireBase.value * hauteur.value
+        aireTotale.value = (2 * Number(aireBase.value) + Number(aireLaterale.value)).toFixed(3)
+        hauteur.value = (aireLaterale.value / perimetre.value).toFixed(3)
+        volume.value = (aireBase.value * hauteur.value).toFixed(3)
 
+        resetEquation2()
+        aireLateraleE()
         updateNumbers2()
         dangerToLink()
-        rayonF()
     }
 }
 
@@ -142,16 +149,14 @@ function aireTotaleF() {
         modal.classList.add("is-active")
         aireTotale.classList.replace("is-link", "is-danger")
     } else {
-        aireBase.value = Math.PI * Math.pow(rayon.value, 2)
-        diametre.value = 2 * rayon.value
-        perimetre.value = diametre.value * Math.PI
-        hauteur.value = (number - 2 * aireBase.value) / perimetre.value
-        aireLaterale.value = perimetre.value * hauteur.value
-        volume.value = aireBase.value * hauteur.value
+        hauteur.value = ((number - 2 * aireBase.value) / perimetre.value).toFixed(3)
+        aireLaterale.value = (perimetre.value * hauteur.value).toFixed(3)
+        volume.value = (aireBase.value * hauteur.value).toFixed(3)
 
+        resetEquation2()
+        aireTotaleE()
         updateNumbers2()
         dangerToLink()
-        rayonF()
     }
 }
 
@@ -165,50 +170,84 @@ function volumeF() {
         modal.classList.add("is-active")
         volume.classList.replace("is-link", "is-danger")
     } else {
-        aireBase.value = Math.PI * Math.pow(rayon.value, 2)
-        diametre.value = 2 * rayon.value
-        perimetre.value = diametre.value * Math.PI
-        hauteur.value = number / aireBase.value
-        aireLaterale.value = perimetre.value * hauteur.value
-        aireTotale.value = (2 * Number(aireBase.value) + Number(aireLaterale.value)).toFixed(12)
+        hauteur.value = (number / aireBase.value).toFixed(3)
+        aireLaterale.value = (perimetre.value * hauteur.value).toFixed(3)
+        aireTotale.value = (2 * Number(aireBase.value) + Number(aireLaterale.value)).toFixed(3)
 
+
+        resetEquation2()
+        volumeE()
         updateNumbers2()
         dangerToLink()
-        rayonF()
     }
 }
 
 
-rayon.onchange = function () {
-    rayonF()
-}
 
-hauteur.onchange = function () {
-    hauteurF()
-}
+btnCalcul.onclick = function() {
+    const rayonV = parseFloat(rayon.value)
+    const diametreV = parseFloat(diametre.value)
+    const perimetreV = parseFloat(perimetre.value)
+    const aireBaseV = parseFloat(aireBase.value)
+    const hauteurV = parseFloat(hauteur.value)
+    const aireLateraleV = parseFloat(aireLaterale.value)
+    const aireTotaleV = parseFloat(aireTotale.value)
+    const volumeV = parseFloat(volume.value)
 
-diametre.onchange = function () {
-    diametreF()
-}
+    const numberOfPart1 = [rayonV, diametreV, perimetreV, aireBaseV].filter((value) => !isNaN(value)).length
+    const numberOfPart2 = [hauteurV, aireLateraleV, aireTotaleV, volumeV].filter((value) => !isNaN(value)).length
 
-perimetre.onchange = function () {
-    perimetreF()
-}
-
-aireBase.onchange = function () {
-    aireBaseF()
-}
-
-aireLaterale.onchange = function () {
-    aireLateraleF()
-}
-
-aireTotale.onchange = function () {
-    aireTotaleF()
-}
-
-volume.onchange = function () {
-    volumeF()
+    if (numberOfPart1 === 1 && numberOfPart2 === 1) {
+        if (!isNaN(rayonV) && !isNaN(hauteurV)) {
+            rayonF()
+            hauteurF()
+        } else if (!isNaN(rayonV) && !isNaN(aireLateraleV)) {
+            rayonF()
+            aireLateraleF()
+        } else if (!isNaN(rayonV) && !isNaN(aireTotaleV)) {
+            rayonF()
+            aireTotaleF()
+        } else if (!isNaN(rayonV) && !isNaN(volumeV)) {
+            rayonF()
+            volumeF()
+        } else if (!isNaN(diametreV) && !isNaN(hauteurV)) {
+            diametreF()
+            hauteurF()
+        } else if (!isNaN(diametreV) && !isNaN(aireLateraleV)) {
+            diametreF()
+            aireLateraleF()
+        } else if (!isNaN(diametreV) && !isNaN(aireTotaleV)) {
+            diametreF()
+            aireTotaleF()
+        } else if (!isNaN(diametreV) && !isNaN(volumeV)) {
+            diametreF()
+            volumeF()
+        } else if (!isNaN(perimetreV) && !isNaN(hauteurV)) {
+            perimetreF()
+            hauteurF()
+        } else if (!isNaN(perimetreV) && !isNaN(aireLateraleV)) {
+            perimetreF()
+            aireLateraleF()
+        } else if (!isNaN(perimetreV) && !isNaN(aireTotaleV)) {
+            perimetreF()
+            aireTotaleF()
+        } else if (!isNaN(perimetreV) && !isNaN(volumeV)) {
+            perimetreF()
+            volumeF()
+        } else if (!isNaN(aireBaseV) && !isNaN(hauteurV)) {
+            aireBaseF()
+            hauteurF()
+        } else if (!isNaN(aireBaseV) && !isNaN(aireLateraleV)) {
+            aireBaseF()
+            aireLateraleF()
+        } else if (!isNaN(aireBaseV) && !isNaN(aireTotaleV)) {
+            aireBaseF()
+            aireTotaleF()
+        } else if (!isNaN(aireBaseV) && !isNaN(volumeV)) {
+            aireBaseF()
+            volumeF()
+        }
+    }
 }
 
 btnReset.onclick = function () {
@@ -223,6 +262,8 @@ btnReset.onclick = function () {
     dangerToLink()
     updateNumbers()
     updateNumbers2()
+    resetEquation()
+    resetEquation2()
 }
 
 function dangerToLink() {
@@ -248,4 +289,14 @@ function updateNumbers2() {
         numVerif2.aireLaterale = aireLaterale.value,
         numVerif2.aireTotale = aireTotale.value,
         numVerif2.volume = volume.value
+}
+
+function resetEquation() {
+    ajout = document.querySelector('.equation')
+    ajout.innerHTML = ""
+}
+
+function resetEquation2() {
+    ajout2 = document.querySelector('.equation2')
+    ajout2.innerHTML = ""
 }
